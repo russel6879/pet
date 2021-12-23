@@ -18,3 +18,6 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('authInfo', 'HomeController@authInfo');
+Route::resource('petType', 'PetTypeController');
+Route::resource('pet', 'PetController');
+Route::get('{path}', 'HomeController@index')->where('path','([A-z\d\-\/_.]+)?');
