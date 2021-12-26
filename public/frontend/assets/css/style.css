@@ -35,6 +35,18 @@
         max-width: 1200px;
     }
 }
+.ht{
+    border: 1px solid #dcdcdc;
+color: #313131;
+display: inline-block;
+font-size: 16px;
+height: 38px;
+line-height: 40px;
+margin: 0 16px 0 0;
+text-align: center;
+width: 50px;
+
+}
 .row {
 	margin-right: calc(var(--bs-gutter-x) * -.6);
 	margin-left: calc(var(--bs-gutter-x) * -.6);

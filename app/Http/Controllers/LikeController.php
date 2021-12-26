@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Pet;
+use App\Like;
 use Illuminate\Http\Request;
-use Image;
-use Illuminate\Support\Str;
-use File;
 use Illuminate\Support\Facades\Auth;
 
-class PetController extends Controller
+class LikeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +15,7 @@ class PetController extends Controller
      */
     public function index()
     {
-      
+        //
     }
 
     /**
@@ -39,26 +36,10 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
-        $form = new Pet();
-
-        $strpos = strpos($request->image, ';');
-                $sub = substr($request->image, 0, $strpos);
-                $ex = explode('/', $sub)[1];
-                $name =Str::random(5).time() . "." . $ex;
-                $img = Image::make($request->image)->resize(270, 265);
-                $upload_path = public_path() . "/images/";
-                $img->save($upload_path . $name,'jpg','png');
-                $form->image = $name;
-
-                $form->petName = $request->petName;
-                $form->color = $request->color;
-                $form->petType = $request->petType;
-                $form->location = $request->location;
-                $form->address = $request->address;
-                $form->phone = $request->phone;
-                $form->description = $request->description;
-                $form->userId =Auth::user()->id;
-                $form->save();
+        Like::insert([
+            'postId'=>$request->postId,
+            'userId'=>Auth::user()->id,
+        ]);
     }
 
     /**
