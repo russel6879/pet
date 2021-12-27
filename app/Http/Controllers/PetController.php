@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Like;
 use App\Pet;
 use Illuminate\Http\Request;
 use Image;
@@ -69,7 +70,8 @@ class PetController extends Controller
      */
     public function show($id)
     {
-        //
+        $data=Pet::where('id',$id)->first();
+        return response()->json($data);
     }
 
     /**
@@ -92,7 +94,41 @@ class PetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($strpos = strpos($request->image, ';')) {
+
+            $form = Pet::find($id);
+            $strpos = strpos($request->image, ';');
+            $sub = substr($request->image, 0, $strpos);
+            $ex = explode('/', $sub)[1];
+            $name = time() . "." . $ex;
+            $img = Image::make($request->image)->resize(270, 265);
+            $upload_path = public_path() . "/images/";
+            $img->save($upload_path . $name);
+            $form->image = $name;
+            $form->petName = $request->petName;
+            $form->color = $request->color;
+            $form->petType = $request->petType;
+            $form->location = $request->location;
+            $form->address = $request->address;
+            $form->phone = $request->phone;
+            $form->description = $request->description;
+            $form->userId =Auth::user()->id;
+                
+            $form->update();
+       
+        } else {
+            $form = Pet::find($id);
+            $form->petName = $request->petName;
+            $form->color = $request->color;
+            $form->petType = $request->petType;
+            $form->location = $request->location;
+            $form->address = $request->address;
+            $form->phone = $request->phone;
+            $form->description = $request->description;
+            $form->userId =Auth::user()->id;         
+            $form->update();
+           
+        }
     }
 
     /**
@@ -103,7 +139,8 @@ class PetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Pet::where('id',$id)->delete();
+        Like::where('postId',$id)->delete();
     }
     public function __construct()
     {

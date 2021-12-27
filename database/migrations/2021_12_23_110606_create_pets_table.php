@@ -21,7 +21,7 @@ class CreatePetsTable extends Migration
             $table->string('image',100)->nullable();
             $table->string('color',100)->nullable();
             $table->string('phone',100)->nullable();
-            $table->string('location',100)->nullable();
+            $table->integer('location')->nullable();
             $table->text('address')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();

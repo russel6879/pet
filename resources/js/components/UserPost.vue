@@ -2,26 +2,8 @@
     <div class="shop-area pt-100 pb-100 gray-bg">
             <div class="container">
                 <div class="row flex-row-reverse">
-                    <div class="col-lg-9">
-                        <div class="shop-topbar-wrapper">
-                            <div class="product-sorting-wrapper mx-auto">
-                                <div class="product-show shorting-style ">
-                                        <div class="shop-widget">
-                            
-                                <div class="shop-search ">
-                                    <form class="shop-search-form">
-                                        <input type="text"  :value="data" @input='e => data = e.target.value'  autocomplete="off"
-                @keyup="search(data)" placeholder="Search Pet">
-                                        <button >
-                                            <i class="icon-magnifier"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                                </div>
-                            </div>
-                           
-                        </div>
+                    <div class="col-lg-10">
+                       
                         <div class="grid-list-product-wrapper">
                             <div class="product-view product-list">
                                 <div class="row">
@@ -47,8 +29,8 @@
                                              
                                                  <div class="product-price">
                                                     <span class=""><span class="text-primary">Contact:</span>&nbsp;{{data.phone}}</span>&nbsp;
-                                                  <span class="new"><span class="text-success" v-if="data.location">Location:</span>&nbsp;{{data.location.location}} </span>
-                                                
+                                                     <span class="new"><span class="text-success" v-if="data.location">Location:</span>&nbsp;{{data.location.location}} </span>
+                                                 
                                                 </div>
                                                 <div class="product-list-action">
                                                     <div class="product-list-action-left">
@@ -88,22 +70,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="shop-sidebar">
-                       
-                            
-                            <div class="shop-widget mt-50">
-                                <h4 class="shop-sidebar-title"> Category </h4>
-                                 <div class="shop-list-style mt-20">
-                                    <ul>
-                                        <li v-for="type in types" :key="type.id" style="cursor: pointer"><span @click.prevent="searchCategory(type.id)"><i class="fas fa-tags" style="color:#7e4c4f"></i>&nbsp;&nbsp;{{type.petType}}</span></li>
-                                      
-                                    </ul>
-                                </div>
-                            </div>
-                           
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -125,12 +92,12 @@
         },
         methods:{
           viewInfo()  {
-              axios.get('authInfo').then(res=>{
+              axios.get('/authInfo').then(res=>{
                this.auth=res.data.info
               })
           },
           viewPost(){
-            axios.get('/viewPost').then(res=>{
+            axios.get('/viewUserPost/'+this.$route.params.id).then(res=>{
               this.getDatas=res.data.data
             })
           },
@@ -145,21 +112,7 @@
                   this.types=res.data.type  
                })
        },
-          search(data){
-             axios.get(`searchPost/`+data).then(res =>{
-          if(res=="NotFound"){
-           alert('notfount')
-          }else{
-            this.getDatas=res.data.data
-           
-          }
-      })
-          },
-          searchCategory(id){
-              axios.get('searchCategory/'+id).then(res=>{
-                   this.getDatas=res.data.data 
-              })
-          }
+      
         }
     }
 </script>

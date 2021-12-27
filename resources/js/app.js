@@ -21,6 +21,9 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 import AddPost from './components/AddPost.vue'
+import  UserPost from './components/UserPost.vue';
+import  MyPost from './components/MyPost.vue';
+import  EditPost from './components/EditPost.vue';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -46,7 +49,20 @@ window.Toast = Toast
     
  const routes = [
    
-   { path: '/add', component: AddPost ,    meta: { hideDashboard: true }}
+   { path: '/add', component: AddPost ,    meta: { hideDashboard: true }},
+   { name:'myPost', path: '/myPost', component: MyPost ,    meta: { hideDashboard: true }},
+   {
+    name: 'user',
+    path: '/user/:id',
+    component: UserPost,
+    meta: { hideDashboard: true }
+   },
+   {
+    name: 'editpost',
+    path: '/editpost/:id',
+    component: EditPost,
+    meta: { hideDashboard: true }
+   },
  ]
    
  const router = new VueRouter({

@@ -5,7 +5,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Marten - Pet Food eCommerce Bootstrap 5 Template</title>
+        <title>Marten - Pet Donete</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css')}}">
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css')}}">
         <script src="{{ asset('frontend/assets/js/vendor/modernizr-3.11.7.min.js')}}"></script>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"  crossorigin="anonymous"/>
      
     </head>
     <body>
@@ -40,7 +41,7 @@
                             <div class="main-menu text-center">
                                 <nav>
                                     <ul>
-                                        <li><a href="{{ route('home') }}">HOME</a>
+                                        <li><a href="{{ route('home') }}"><i class="fas fa-home" style="font-size: 25px;"></i></a>
                                           
                                         </li>
                                       
@@ -59,16 +60,22 @@
   </a>
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item" href="#"> <router-link
+    <li class="dropdown-item" > <router-link
               style="text-decoration: none; color: inherit"
               to="/add"
               class="card-title"
-            >Add Post</router-link>
-                                 </a>
+            ><i class="fas fa-plus-circle"></i>&nbsp;Add Post</router-link>
+</li>
+    <li class="dropdown-item"> <router-link
+              style="text-decoration: none; color: inherit"
+              to="/myPost"
+              class="card-title"
+            ><i class="fas fa-paste"></i>&nbsp;My Post</router-link>
+</li>
     <a class="dropdown-item" href="#"> <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                       <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -111,10 +118,10 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-12 col-sm-7">
                                 <div class="slider-content slider-animated-1 pt-114">
-                                    <h3 class="animated">We keep pets for pleasure.</h3>
-                                    <h1 class="animated">Food & Vitamins <br>For all Pets</h1>
+                                    <h3 class="animated">You Pet deserves more Care</h3>
+                                    <h1 class="animated">Love, Treat, care your Pet</h1>
                                     <div class="slider-btn">
-                                        <a class="animated" href="product-details.html">SHOP NOW</a>
+                                     
                                     </div>
                                 </div>
                             </div>
@@ -132,9 +139,9 @@
                             <div class="col-lg-6 col-md-6 col-sm-7 col-12">
                                 <div class="slider-content slider-animated-1 pt-114">
                                     <h3 class="animated">We keep pets for pleasure.</h3>
-                                    <h1 class="animated">Food & Vitamins <br>For all Pets</h1>
+                                    <h1 class="animated">Making your Pet Happier</h1>
                                     <div class="slider-btn">
-                                        <a class="animated" href="product-details.html">SHOP NOW</a>
+                                   
                                     </div>
                                 </div>
                             </div>

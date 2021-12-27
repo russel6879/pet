@@ -15,7 +15,7 @@
                                                     <h4>Add Post</h4>
                                                   
                                                 </div>
-                                                <form @submit.prevent="add()"> 
+                                                <form @submit.prevent="update()"> 
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="billing-info">
@@ -38,17 +38,12 @@
                                                     </select>
                                                         </div>
                                                     </div>
-                                                  
-                                                    <div class="col-lg-12 col-md-12">
+                                                    <div class="col-lg-6 col-md-6">
                                                         <div class="billing-info">
-                                                             <label >Location <button class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal3">Add Location</button></label>                                                         
-                                                    <select id="inputState" v-model="form.location" class="form-control">
-                                                        <option selected>Select Location</option>
-                                                        <option v-for="location in locations" :key="location.id" :value="location.id" >{{location.location}}</option>
-                                                    </select>
+                                                            <label>Location</label>
+                                                            <input v-model="form.location" type="text">
                                                         </div>
                                                     </div>
-                                                  
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="billing-info">
                                                             <label>Phone</label>
@@ -127,39 +122,6 @@
                     </div>
                 </div>
             </div>
-                          	<!-- modal -->
-        <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-hidden="true">
-            
-            <div class="modal-dialog" role="document">
-                <div class="modal-content ">
-                    <div class="modal-body mx-auto">
-                     <div class="col-lg-12 col-md-12">
-                                                
-  <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-4 col-form-label">Location</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" v-model="form.location" id="inputEmail3" placeholder="Location">
-        <span v-if="error2" class="text-danger">This Location Already Taken</span>
-
-    </div>
-  </div>
-  
-  <div class="form-group mt-3 " style="margin-left:30%">
-  <div class="btn-group" role="group" aria-label="Third group">
-    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</button>
-  </div>
-  <div class="btn-group" role="group" aria-label="Third group">
-    <button type="button"  @click.prevent="addLocation()" class="btn btn-primary">Add</button>
-  </div>
-  </div>
-
-                                                    </div>
-                                                    </div>
-
-                                  
-                    </div>
-                </div>
-            </div>
        
         </div> 
 </template>
@@ -184,41 +146,43 @@ import Form from 'vform'
                   }),
              auth:'',
              types:[],
-             locations:[],
               error:false,
-              error2:false,
             }
         },
         mounted() {
+            this.viewPost()
             this.viewInfo()
             this.viewType()
-            this.viewLocation()
         },
         methods:{
+            viewPost(){
+              axios.get('/pet/'+this.$route.params.id).then(res=>{
+                     this.form.fill(res.data);
+              })
+            },
           viewInfo()  {
               axios.get('authInfo').then(res=>{
                this.auth=res.data.info
               })
           },
-          add(){
-                      this.form.post('pet').then(res=>{
-                          this.form.reset();
+          update(){
+                      axios.put(`/pet/${this.$route.params.id}`,this.form).then(res=>{
+                         this.$router.push({ name: "myPost" });
                                       Toast.fire({
                            icon: "success",
-                 title: "Successfully Added!!!",
+                 title: "Successfully Updated!!!",
           });
 
                       })
           },
              changeImage(event) {
-      let file = event.target.files[0];
+     let file = event.target.files[0];
       let reader = new FileReader();
       reader.onload = (event) => {
         this.form.image = event.target.result;
         console.log(event.target.result);
       };
       reader.readAsDataURL(file);
-      this.imageOne=true
     },
       OurPhoto(){
        if(this.form.image!== null){
@@ -228,19 +192,14 @@ import Form from 'vform'
               
          }
          else{
-           return `productImage/${this.form.image}`
+           return `/images/${this.form.image}`
          }
        }
          
        },
        viewType(){
-               axios.get('petType').then(res=>{
+               axios.get('/petType').then(res=>{
                   this.types=res.data.type  
-               })
-       },
-       viewLocation(){
-               axios.get('location').then(res=>{
-                  this.locations=res.data.location  
                })
        },
           addType(){
@@ -254,19 +213,6 @@ import Form from 'vform'
           });
                  }).catch(res=>{
                     this.error=true;
-                 })
-        
-        },addLocation(){
-                 axios.post('location',{location:this.form.location}).then(res=>{
-                        $('#exampleModal3').modal('hide');
-                         this.viewLocation()
-                     this.form.location='',
-                     Toast.fire({
-            icon: "success",
-            title: "Successfully Added!!!",
-          });
-                 }).catch(res=>{
-                    this.error2=true;
                  })
           }
         }
