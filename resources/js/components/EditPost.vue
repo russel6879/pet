@@ -35,14 +35,7 @@
                             <div class="billing-info">
                               <label
                                 >Pet Type
-                                <button
-                                  class="btn btn-info mb-1"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#exampleModal2"
-                                >
-                                  Add Type
-                                </button></label
-                              >
+                              </label>
                               <select
                                 id="inputState"
                                 v-model="form.petType"

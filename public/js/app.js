@@ -2431,13 +2431,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -43537,7 +43530,11 @@ var render = function () {
                                   { staticClass: "col-lg-12 col-md-12" },
                                   [
                                     _c("div", { staticClass: "billing-info" }, [
-                                      _vm._m(1),
+                                      _c("label", [
+                                        _vm._v(
+                                          "Pet Type\n                            "
+                                        ),
+                                      ]),
                                       _vm._v(" "),
                                       _c(
                                         "select",
@@ -43783,7 +43780,7 @@ var render = function () {
                                 ),
                               ]),
                               _vm._v(" "),
-                              _vm._m(2),
+                              _vm._m(1),
                             ]
                           ),
                         ]
@@ -43806,29 +43803,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "account-info-wrapper" }, [
       _c("h4", [_vm._v("Add Post")]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _vm._v("Pet Type\n                              "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-info mb-1",
-          attrs: {
-            "data-bs-toggle": "modal",
-            "data-bs-target": "#exampleModal2",
-          },
-        },
-        [
-          _vm._v(
-            "\n                                Add Type\n                              "
-          ),
-        ]
-      ),
     ])
   },
   function () {
