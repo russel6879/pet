@@ -2836,7 +2836,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (filtered) {
           if (filterSearch) {
-            filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase()) || item.description.toLowerCase().includes(filterSearch.toLowerCase());
+            filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase()) || item.description.toLowerCase().includes(filterSearch.toLowerCase()) || item.color.toLowerCase().includes(filterSearch.toLowerCase());
           }
         }
 
