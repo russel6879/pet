@@ -22,10 +22,12 @@
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css')}}">
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css')}}">
         <script src="{{ asset('frontend/assets/js/vendor/modernizr-3.11.7.min.js')}}"></script>
+      
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"  crossorigin="anonymous"/>
      
     </head>
     <body>
+        
         <div id="app">
         <header class="header-area">
            
@@ -157,7 +159,7 @@
         </div>
         <router-view></router-view>
         <span  v-if="!$route.meta.hideDashboard">
-        <example-component></example-component>
+        <index></index>
 </span>
 
         <!-- <div class="food-category food-category-col pt-100 pb-60">

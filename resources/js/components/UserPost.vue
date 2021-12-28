@@ -17,7 +17,7 @@
                                             </div>
                                       
                                             <div class="product-list-content" >
-                                                <h4><router-link   :to="{ name: 'user', params: { id: data.user.id } }">{{data.user.name}}</router-link></h4>
+                                                <h4><router-link style="color: #7e4c4f"  :to="{ name: 'user', params: { id: data.user.id } }">{{data.user.name}}</router-link></h4>
                                                  
                                                 <div class="product-price">
                                                     <span class="new ">{{data.pet.petType}} </span>
@@ -33,11 +33,11 @@
                                                  
                                                 </div>
                                                 <div class="product-list-action">
-                                                    <div class="product-list-action-left">
+                                                    <!-- <div class="product-list-action-left">
                                                         <a class="addtocart-btn" title="Add to cart" href="#"><i class="ion-bag"></i> Donate</a>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="product-list-action-right" v-if="auth">
-                                                        <span v-if="data.authlike!=null"> <span title="Like" class="ht"><i class="ti-heart" style="color:red"></i>{{data.like_count}}</span></span>
+                                                        <span v-if="data.authlike!=null"> <span title="Like" class="ht" @click.prevent="dislike(data.id)"><i class="ti-heart" style="color:red"></i>{{data.like_count}}</span></span>
                                                         <span title="Like" class="ht" @click.prevent="like(data.id)" v-else><i class="ti-heart " ></i>{{data.like_count}}</span>
                                                        
                                                     </div>
@@ -102,11 +102,16 @@
             })
           },
           like(id){
-              axios.post('like',{postId:id}).then(res=>{
+              axios.post('/like',{postId:id}).then(res=>{
                   this.viewPost()
               })
                   
           },
+             dislike(id) {
+      axios.delete("/like/"+id ).then((res) => {
+        this.viewPost();
+      });
+    },
              viewType(){
                axios.get('petType').then(res=>{
                   this.types=res.data.type  

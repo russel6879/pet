@@ -84,7 +84,7 @@ class LikeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Like::where('postId',$id)->where('userId',Auth::user()->id)->delete();
     }
     public function __construct()
     {

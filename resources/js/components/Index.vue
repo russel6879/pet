@@ -31,7 +31,7 @@
               <div class="row">
                 <div
                   class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6"
-                  v-for="data in getDatas"
+                  v-for="data in searchItem"
                   :key="data.id"
                 >
                   <div class="product-wrapper mb-10">
@@ -42,7 +42,7 @@
                     <div class="product-list-content">
                       <h4>
                         <router-link
-                          :to="{ name: 'user', params: { id: data.user.id } }"
+                          :to="{ name: 'user', params: { id: data.user.id } }" style="color: #7e4c4f"
                           >{{ data.user.name }}</router-link
                         >
                       </h4>
@@ -68,14 +68,14 @@
                         </span>
                       </div>
                       <div class="product-list-action">
-                        <div class="product-list-action-left">
+                        <!-- <div class="product-list-action-left">
                           <a class="addtocart-btn" title="Add to cart" href="#"
                             ><i class="ion-bag"></i> Donate</a
                           >
-                        </div>
+                        </div> -->
                         <div class="product-list-action-right" v-if="auth">
                           <span v-if="data.authlike != null">
-                            <span title="Like" class="ht"
+                            <span title="Like" class="ht"  @click.prevent="dislike(data.id)"
                               ><i class="ti-heart" style="color: red"></i
                               >{{ data.like_count }}</span
                             ></span
@@ -101,7 +101,7 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="getDatas==''"><center><h4 class="text-danger">Your search Item Not found</h4></center></div>
+                <div v-if="searchItem==''"><center><h4 class="text-danger">Your search Item Not found</h4></center></div>
               </div>
               <!-- <div class="pagination-style text-center mt-10">
                                     <ul>
@@ -122,8 +122,32 @@
             </div>
           </div>
         </div>
+        
+ 
+   
+      
         <div class="col-lg-3">
           <div class="shop-sidebar">
+               <div class="shop-widget mt-50">
+              <h4 class="shop-sidebar-title"><i class="fas fa-filter" style="color: #7e4c4f"></i>&nbsp;FILTER BY</h4>
+              <div class="shop-list-style mt-20">
+                 <label for="exampleFormControlSelect1">Pet Type</label>
+                 <select class="form-control" v-model="selectedType" @change.prevent="type()">
+    <option  v-for="type in types" v-bind:value=type.id :key="type"  >{{type.petType}}</option>
+ 
+   
+  </select>
+              </div>
+              <div class="shop-list-style mt-20">
+                 <label for="exampleFormControlSelect1">Location</label>
+                 <select class="form-control" v-model="selectedLocation" @change.prevent="location()">
+    <option  v-for="location in locations" v-bind:value=location.id :key="location"  >{{location.location}}</option>
+ 
+   
+  </select>
+              </div>
+        
+            </div>
             <div class="shop-widget mt-50">
               <h4 class="shop-sidebar-title">Category</h4>
               <div class="shop-list-style mt-20">
@@ -150,17 +174,26 @@
 
 <script>
 export default {
+  
   data() {
     return {
       auth: "",
       getDatas: [],
       types: [],
+      locations: [],
+       selectedType: '',
+    selectedLocation: '',
+    selectedYear: '',
+    searchData:'',
+  items:[]
     };
   },
+
   mounted() {
     this.viewInfo();
     this.viewPost();
     this.viewType();
+    this.viewLocation();
   },
   methods: {
     viewInfo() {
@@ -171,10 +204,17 @@ export default {
     viewPost() {
       axios.get("/viewPost").then((res) => {
         this.getDatas = res.data.data;
+        this.items = res.data.data;
+       
       });
     },
     like(id) {
       axios.post("like", { postId: id }).then((res) => {
+        this.viewPost();
+      });
+    },
+    dislike(id) {
+      axios.delete("like/"+id ).then((res) => {
         this.viewPost();
       });
     },
@@ -183,20 +223,74 @@ export default {
         this.types = res.data.type;
       });
     },
-    search(data) {
-      axios.get(`searchPost/` + data).then((res) => {
-        if (res == "NotFound") {
-          alert("notfount");
-        } else {
-          this.getDatas = res.data.data;
-        }
-      });
+    viewLocation(){
+               axios.get('location').then(res=>{
+                  this.locations=res.data.location  
+               })
+       },
+       type(){
+        this.searchData=''
+       },
+       location(){
+ this.searchData=''
+       },
+    search(dataItem) {
+         this.selectedLocation= '',
+    this.selectedType= '',
+    this.searchData='',
+      this.searchData=dataItem;
+      // axios.get(`searchPost/` + data).then((res) => {
+      //   if (res == "NotFound") {
+      //     alert("notfount");
+      //   } else {
+      //     this.getDatas = res.data.data;
+      //   }
+      // });
     },
     searchCategory(id) {
-      axios.get("searchCategory/" + id).then((res) => {
-        this.getDatas = res.data.data;
-      });
+       this.selectedLocation= '',
+    this.selectedType= '',
+    this.searchData='', 
+     this.selectedType=id;
     },
+ highlightText(text) {
+   return text.replaceAll(this.searchData, `<span class="highlight">${this.searchData}</span>`)
+}
+  },
+    computed: {
+    searchItem: function () {
+       
+      let filterType= this.selectedType,     
+       filterLocation=this.selectedLocation,      
+       filterSearch=this.searchData     
+      
+  
+      return this.items.filter(function(item){
+        let filtered = true
+        if(filterType ){
+     
+          filtered = item.petType == filterType
+       
+        }
+         if(filtered){
+          if(filterLocation ){
+           
+            filtered = item.location.id == filterLocation
+          }
+        }
+         if(filtered){
+          if(filterSearch ){
+            filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase())||item.description.toLowerCase().includes(filterSearch.toLowerCase())
+          }
+        }
+     
+        return filtered
+      })
+    }
   },
 };
 </script>
+<style>
+
+.highlight{ color:red
+}</style>
