@@ -21,9 +21,14 @@ window.Vue = require('vue');
 
 Vue.component('index', require('./components/Index.vue').default);
 import AddPost from './components/AddPost.vue'
+import AddBlog from './components/AddBlog.vue'
 import  UserPost from './components/UserPost.vue';
+import  UserBlog from './components/UserBlog.vue';
+import  BlogList from './components/BlogList.vue';
+import  MyBlog from './components/MyBlog.vue';
 import  MyPost from './components/MyPost.vue';
 import  EditPost from './components/EditPost.vue';
+import  EditBlog from './components/EditBlog.vue';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -33,7 +38,7 @@ import  EditPost from './components/EditPost.vue';
  window.Swal = Swal
  const Toast = Swal.mixin({
  toast: true,
- position: 'top-end',
+ position: 'center',
  showConfirmButton: false,
  timer: 3000,
  timerProgressBar: true,
@@ -50,11 +55,20 @@ window.Toast = Toast
  const routes = [
    
    { path: '/add', component: AddPost ,    meta: { hideDashboard: true }},
+   { path: '/addBlog', component: AddBlog ,    meta: { hideDashboard: true }},
    { name:'myPost', path: '/myPost', component: MyPost ,    meta: { hideDashboard: true }},
+   { name:'myBlog', path: '/myBlog', component: MyBlog ,    meta: { hideDashboard: true }},
+   { name:'blogList', path: '/blogList', component: BlogList ,    meta: { hideDashboard: true }},
    {
     name: 'user',
     path: '/user/:id',
     component: UserPost,
+    meta: { hideDashboard: true }
+   },
+   {
+    name: 'user-blog',
+    path: '/user-blog/:id',
+    component: UserBlog,
     meta: { hideDashboard: true }
    },
    {
@@ -63,11 +77,20 @@ window.Toast = Toast
     component: EditPost,
     meta: { hideDashboard: true }
    },
+   {
+    name: 'editblog',
+    path: '/editblog/:id',
+    component: EditBlog,
+    meta: { hideDashboard: true }
+   },
  ]
    
  const router = new VueRouter({
      mode: 'history',
-   routes 
+   routes ,
+   scrollBehavior ( to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
  })
  
 

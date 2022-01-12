@@ -34,6 +34,7 @@
                   v-for="data in searchItem"
                   :key="data.id"
                 >
+          
                   <div class="product-wrapper mb-10">
                     <div class="product-img">
                       <img :src="'/images/' + data.image" alt="" />
@@ -43,17 +44,17 @@
                       <h4>
                         <router-link
                           :to="{ name: 'user', params: { id: data.user.id } }" style="color: #7e4c4f"
-                          >{{ data.user.name }}</router-link
+                          ><i class="fas fa-user"></i>&nbsp;{{ data.user.name }}</router-link
                         >
                       </h4>
 
                       <div class="product-price">
-                        <span class="new">{{ data.pet.petType }} </span>
-                        <span class="new">{{ data.petName }} </span>
-                        <span class="new">{{ data.color }} </span>
+                        <span class="new" v-html="matchName(data.pet.petType)"></span>
+                        <span class="new" v-html="matchName(data.petName)"></span>
+                        <span class="new" v-if="data.color" v-html="matchName(data.color.color)">   </span>
                       </div>
 
-                      <p>{{ data.description }}</p>
+                       <p v-html="matchName(data.description)"></p>
 
                       <div class="product-price">
                         <span class=""
@@ -64,7 +65,7 @@
                         <span class="new"
                           ><span class="text-success" v-if="data.location"
                             >Location:</span
-                          >&nbsp;{{ data.location.location }}
+                          >&nbsp;<span v-html="matchName(data.location.location)"></span>
                         </span>
                       </div>
                       <div class="product-list-action">
@@ -139,6 +140,14 @@
   </select>
               </div>
               <div class="shop-list-style mt-20">
+                 <label for="exampleFormControlSelect1">Pet Color</label>
+                 <select class="form-control" v-model="selectedColor" @change.prevent="color()">
+    <option  v-for="color in colors" v-bind:value=color.id :key="color"  >{{color.color}}</option>
+ 
+   
+  </select>
+              </div>
+              <div class="shop-list-style mt-20">
                  <label for="exampleFormControlSelect1">Location</label>
                  <select class="form-control" v-model="selectedLocation" @change.prevent="location()">
     <option  v-for="location in locations" v-bind:value=location.id :key="location"  >{{location.location}}</option>
@@ -181,8 +190,10 @@ export default {
       getDatas: [],
       types: [],
       locations: [],
+      colors: [],
        selectedType: '',
     selectedLocation: '',
+    selectedColor: '',
     selectedYear: '',
     searchData:'',
   items:[]
@@ -194,6 +205,7 @@ export default {
     this.viewPost();
     this.viewType();
     this.viewLocation();
+    this.viewColor();
   },
   methods: {
     viewInfo() {
@@ -228,15 +240,24 @@ export default {
                   this.locations=res.data.location  
                })
        },
+    viewColor(){
+               axios.get('color').then(res=>{
+                  this.colors=res.data.color  
+               })
+       },
        type(){
         this.searchData=''
        },
        location(){
  this.searchData=''
        },
+       color(){
+ this.searchData=''
+       },
     search(dataItem) {
+      this.selectedType= '',
+         this.selectedColor= '',
          this.selectedLocation= '',
-    this.selectedType= '',
     this.searchData='',
       this.searchData=dataItem;
       // axios.get(`searchPost/` + data).then((res) => {
@@ -249,19 +270,23 @@ export default {
     },
     searchCategory(id) {
        this.selectedLocation= '',
+       this.selectedColor= '',
     this.selectedType= '',
     this.searchData='', 
      this.selectedType=id;
     },
- highlightText(text) {
-   return text.replaceAll(this.searchData, `<span class="highlight">${this.searchData}</span>`)
-}
+ matchName(current) {
+      let reggie = new RegExp(this.searchData, "ig");
+      let found = current.search(reggie) !== -1;
+      return !found ? current : current.replace(reggie, '<b style="background:rgb(246, 171, 68)">' + this.searchData + '</b>');
+    }
   },
     computed: {
     searchItem: function () {
        
       let filterType= this.selectedType,     
        filterLocation=this.selectedLocation,      
+       filterColor=this.selectedColor,      
        filterSearch=this.searchData     
       
   
@@ -279,9 +304,14 @@ export default {
           }
         }
          if(filtered){
-          if(filterSearch ){
-            filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase())||item.description.toLowerCase().includes(filterSearch.toLowerCase())||item.color.toLowerCase().includes(filterSearch.toLowerCase())
+          if(filterColor ){
+           
+            filtered = item.color.id == filterColor
           }
+        }
+         if(filtered){
+          if(filterSearch ){
+            filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase())||item.description.toLowerCase().includes(filterSearch.toLowerCase())||item.location.location.toLowerCase().includes(filterSearch.toLowerCase()) ||item.color.color.toLowerCase().includes(filterSearch.toLowerCase()||item.typr.petType.toLowerCase().includes(filterSearch.toLowerCase()))         }
         }
      
         return filtered

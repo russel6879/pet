@@ -19,7 +19,7 @@ class CreatePetsTable extends Migration
             $table->integer('petType')->nullable();
             $table->string('petName',100);
             $table->string('image',100)->nullable();
-            $table->string('color',100)->nullable();
+            $table->integer('color')->nullable();
             $table->string('phone',100)->nullable();
             $table->integer('location')->nullable();
             $table->text('address')->nullable();

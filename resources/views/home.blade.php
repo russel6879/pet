@@ -36,17 +36,48 @@
                     <div class="row">
                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-5">
                             <div class="logo pt-39">
-                                <a href="index.html"><img alt="" src="{{ asset('frontend/assets/img/logo/logo.png')}}"></a>
+                                <!-- <a href="/"><img alt="" src="{{ asset('frontend/assets/img/logo/logo.png')}}"></a> -->
                             </div>
                         </div>
                         <div class="col-xl-8 col-lg-7 d-none d-lg-block relative">
                             <div class="main-menu text-center">
                                 <nav>
                                     <ul>
-                                        <li><a href="{{ route('home') }}"><i class="fas fa-home" style="font-size: 25px;"></i></a>
+                                        <li><a href="{{ route('home') }}"><i class="fas fa-home" ></i>&nbsp;Home</a>
                                           
                                         </li>
-                                      
+                                        <li  > <router-link
+              style="text-decoration: none; color: inherit"
+              to="/blogList"
+              class="card-title"
+            ><i class="fas fa-blog"></i>&nbsp;Blog</router-link>
+</li>
+                                        @if(Auth::user())
+                                        <li  > <router-link
+              style="text-decoration: none; color: inherit"
+              to="/add"
+              class="card-title"
+            ><i class="fas fa-dog"></i>&nbsp;Add Pet</router-link>
+</li>
+    <li> <router-link
+              style="text-decoration: none; color: inherit"
+              to="/myPost"
+              class="card-title"
+            ><i class="fas fa-cat"></i>&nbsp;My Pet</router-link>
+</li>
+<li  > <router-link
+              style="text-decoration: none; color: inherit"
+              to="/addBlog"
+              class="card-title"
+            ><i class="fas fa-plus-circle"></i>&nbsp;Add Blog</router-link>
+</li>
+<li  > <router-link
+              style="text-decoration: none; color: inherit"
+              to="/myBlog"
+              class="card-title"
+            ><i class="fas fa-copy"></i>&nbsp;My Blog</router-link>
+</li>
+@endif
                                      
                                 </nav>
                             </div>
@@ -62,18 +93,7 @@
   </a>
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <li class="dropdown-item" > <router-link
-              style="text-decoration: none; color: inherit"
-              to="/add"
-              class="card-title"
-            ><i class="fas fa-plus-circle"></i>&nbsp;Add Post</router-link>
-</li>
-    <li class="dropdown-item"> <router-link
-              style="text-decoration: none; color: inherit"
-              to="/myPost"
-              class="card-title"
-            ><i class="fas fa-paste"></i>&nbsp;My Post</router-link>
-</li>
+    
     <a class="dropdown-item" href="#"> <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -100,10 +120,42 @@
                             <div class="mobile-menu">
                                 <nav id="mobile-menu-active">
                                     <ul class="menu-overflow">
-                                        <li><a href="{{ route('home') }}">HOME</a>
+                                        <li><a href="{{ route('home') }}"><i class="fas fa-home" ></i>&nbsp;HOME</a>
                                            
                                         </li>
-                                      
+                                        <li  > <router-link
+              style="text-decoration: none; color: inherit"
+              to="/blogList"
+              class="card-title"
+            ><i class="fas fa-blog"></i>&nbsp;Blog</router-link>
+</li>
+      
+                                        @if(Auth::user())
+                                        <li  > <router-link
+              style="text-decoration: none; color: inherit"
+              to="/add"
+              class="card-title"
+            ><i class="fas fa-dog"></i>&nbsp;Add Pet</router-link>
+</li>
+    <li> <router-link
+              style="text-decoration: none; color: inherit"
+              to="/myPost"
+              class="card-title"
+            ><i class="fas fa-cat"></i>&nbsp;My Pet</router-link>
+</li>
+<li  > <router-link
+              style="text-decoration: none; color: inherit"
+              to="/addBlog"
+              class="card-title"
+            ><i class="fas fa-plus-circle"></i>&nbsp;Add Blog</router-link>
+</li>
+<li  > <router-link
+              style="text-decoration: none; color: inherit"
+              to="/myBlog"
+              class="card-title"
+            ><i class="fas fa-copy"></i>&nbsp;My Blog</router-link>
+</li>
+@endif
                                     </ul>
                                 </nav>
                             </div>
@@ -608,7 +660,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="copyright text-center">
-                                <p>Copyright © <a href="#">Marten.</a> All Right Reserved.</p>
+                                <p>Copyright © <a href="#">Pet Friend.</a> All Right Reserved.</p>
                             </div>
                         </div>
                     </div>
@@ -622,14 +674,17 @@
             </button>
             <div class="modal-dialog" role="document">
                 <div class="modal-content ">
-                    <div class="modal-body mx-auto">
-                    <form method="POST" action="{{ route('login') }}">
+                  
+               
+                    <div class="modal-body ">
+                    <img alt="" src="{{ asset('frontend/assets/img/index2.png')}}" style="width:40%">
+                    <form method="POST" action="{{ route('login') }}" class="mt-1">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-5 col-form-label "><i class="fas fa-envelope" style="color: rgb(126, 76, 79);"></i>&nbsp;{{ __('E-Mail Address') }}</label>
 
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
@@ -638,12 +693,12 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
+                        </div><br>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-5 col-form-label text-md-right"><i class="fas fa-key" style="color: rgb(126, 76, 79);"></i>&nbsp;{{ __('Password') }}</label>
 
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
@@ -652,10 +707,10 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
+                        </div><br>
 
                         <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-7 offset-md-5">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -664,11 +719,11 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div><br>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="col-md-8 offset-md-5">
+                                <button type="submit" class="btn btn-primary m-2 " style="border-radius: 16px;">
                                     {{ __('Login') }}
                                 </button>
 

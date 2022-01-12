@@ -15,7 +15,7 @@
                   <div class="panel-body">
                     <div class="billing-information-wrapper">
                       <div class="account-info-wrapper">
-                        <h4>Add Post</h4>
+                        <h4>Add Pet</h4>
                       </div>
                       <form @submit.prevent="add()">
                         <div class="row">
@@ -25,10 +25,33 @@
                               <input v-model="form.petName" type="text" />
                             </div>
                           </div>
-                          <div class="col-lg-6 col-md-6">
+                         
+                          <div class="col-lg-12 col-md-12">
                             <div class="billing-info">
-                              <label>Color</label>
-                              <input v-model="form.color" type="text" />
+                              <label
+                                >Color
+                                <button
+                                  class="btn btn-info mb-1"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal4"
+                                >
+                                  Add Color
+                                </button></label
+                              >
+                              <select
+                                id="inputState"
+                                v-model="form.color"
+                                class="form-control"
+                              >
+                                <option selected>Select Pet Color</option>
+                                <option
+                                  v-for="color in colors"
+                                  :key="color.id"
+                                  :value="color.id"
+                                >
+                                  {{ color.color }}
+                                </option>
+                              </select>
                             </div>
                           </div>
                           <div class="col-lg-12 col-md-12">
@@ -189,13 +212,13 @@
                   </button>
                 </div>
                 <div class="btn-group" role="group" aria-label="Third group">
-                  <button
-                    type="button"
+                  <span
+                   
                     @click.prevent="addType()"
                     class="btn btn-primary"
                   >
                     Add
-                  </button>
+                  </span>
                 </div>
               </div>
             </div>
@@ -245,13 +268,69 @@
                   </button>
                 </div>
                 <div class="btn-group" role="group" aria-label="Third group">
-                  <button
-                    type="button"
+                  <span
+                   
                     @click.prevent="addLocation()"
                     class="btn btn-primary"
                   >
                     Add
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal -->
+    <div
+      class="modal fade"
+      id="exampleModal4"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body mx-auto">
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-4 col-form-label"
+                  >Color</label
+                >
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="form.color"
+                    id="inputEmail3"
+                    placeholder="Color"
+                  />
+                  <span v-if="error3" class="text-danger"
+                    >This Color Already Taken</span
+                  >
+                </div>
+              </div>
+
+              <div class="form-group mt-3" style="margin-left: 30%">
+                <div class="btn-group" role="group" aria-label="Third group">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    Close
                   </button>
+                </div>
+                <div class="btn-group" role="group" aria-label="Third group">
+                  <span
+                  
+                    @click.prevent="addColor()"
+                    class="btn btn-primary"
+                  >
+                    Add
+                  </span>
                 </div>
               </div>
             </div>
@@ -279,14 +358,17 @@ export default {
       }),
       auth: "",
       types: [],
+      colors: [],
       locations: [],
       error: false,
       error2: false,
+      error3: false,
     };
   },
   mounted() {
     this.viewInfo();
     this.viewType();
+    this.viewColor();
     this.viewLocation();
   },
   methods: {
@@ -334,6 +416,11 @@ export default {
         this.locations = res.data.location;
       });
     },
+    viewColor() {
+      axios.get("color").then((res) => {
+        this.colors = res.data.color;
+      });
+    },
     addType() {
       axios
         .post("petType", { petType: this.form.petType })
@@ -357,6 +444,22 @@ export default {
           $("#exampleModal3").modal("hide");
           this.viewLocation();
           (this.form.location = ""),
+            Toast.fire({
+              icon: "success",
+              title: "Successfully Added!!!",
+            });
+        })
+        .catch((res) => {
+          this.error2 = true;
+        });
+    },
+    addColor() {
+      axios
+        .post("color", { color: this.form.color })
+        .then((res) => {
+          $("#exampleModal4").modal("hide");
+          this.viewColor();
+          (this.form.color = ""),
             Toast.fire({
               icon: "success",
               title: "Successfully Added!!!",

@@ -12,6 +12,9 @@ class Pet extends Model
     public function location(){
         return $this->belongsTo(Location::class,'location','id');
     }
+    public function color(){
+        return $this->belongsTo(Color::class,'color','id');
+    }
     public function like(){
         return $this->hasMany(Like::class,'postId');
     }

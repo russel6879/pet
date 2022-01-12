@@ -15,7 +15,7 @@
                   <div class="panel-body">
                     <div class="billing-information-wrapper">
                       <div class="account-info-wrapper">
-                        <h4>Add Post</h4>
+                        <h4>Update Post</h4>
                       </div>
                       <form @submit.prevent="update()">
                         <div class="row">
@@ -28,7 +28,20 @@
                           <div class="col-lg-6 col-md-6">
                             <div class="billing-info">
                               <label>Color</label>
-                              <input v-model="form.color" type="text" />
+                             <select
+                                id="inputState"
+                                v-model="form.color"
+                                class="form-control"
+                              >
+                                <option selected>Select Pet Color</option>
+                                <option
+                                  v-for="color in colors"
+                                  :key="color.id"
+                                  :value="color.id"
+                                >
+                                  {{ color.color }}
+                                </option>
+                              </select>
                             </div>
                           </div>
                           <div class="col-lg-12 col-md-12">
@@ -55,7 +68,20 @@
                           <div class="col-lg-6 col-md-6">
                             <div class="billing-info">
                               <label>Location</label>
-                              <input v-model="form.location" type="text" />
+                              <select
+                                id="inputState"
+                                v-model="form.location"
+                                class="form-control"
+                              >
+                                <option selected>Select Location</option>
+                                <option
+                                  v-for="location in locations"
+                                  :key="location.id"
+                                  :value="location.id"
+                                >
+                                  {{ location.location }}
+                                </option>
+                              </select>
                             </div>
                           </div>
                           <div class="col-lg-6 col-md-6">
@@ -137,6 +163,8 @@ export default {
       }),
       auth: "",
       types: [],
+      colors: [],
+      locations: [],
       error: false,
     };
   },
@@ -144,6 +172,8 @@ export default {
     this.viewPost();
     this.viewInfo();
     this.viewType();
+    this.viewColor();
+    this.viewLocation();
   },
   methods: {
     viewPost() {
@@ -187,6 +217,16 @@ export default {
     viewType() {
       axios.get("/petType").then((res) => {
         this.types = res.data.type;
+      });
+    },
+      viewLocation() {
+      axios.get("/location").then((res) => {
+        this.locations = res.data.location;
+      });
+    },
+    viewColor() {
+      axios.get("/color").then((res) => {
+        this.colors = res.data.color;
       });
     },
     addType() {

@@ -20,7 +20,7 @@
                       <h4>
                         <router-link
                           :to="{ name: 'user', params: { id: data.user.id } }"
-                          >{{ data.user.name }}</router-link
+                          ><i class="fas fa-user"></i>&nbsp;{{ data.user.name }}</router-link
                         >&nbsp;&nbsp;&nbsp;&nbsp;<i
                           @click.prevent="deletePost(data.id)"
                           class="fas fa-trash-alt"
@@ -35,7 +35,7 @@
                       <div class="product-price">
                         <span class="new">{{ data.pet.petType }} </span>
                         <span class="new">{{ data.petName }} </span>
-                        <span class="new">{{ data.color }} </span>
+                   <span class="new" v-if="data.color">{{ data.color.color }} </span>
                       </div>
 
                       <p>{{ data.description }}</p>

@@ -17,12 +17,12 @@
                                             </div>
                                       
                                             <div class="product-list-content" >
-                                                <h4><router-link style="color: #7e4c4f"  :to="{ name: 'user', params: { id: data.user.id } }">{{data.user.name}}</router-link></h4>
+                                                <h4><router-link style="color: #7e4c4f"  :to="{ name: 'user', params: { id: data.user.id } }"><i class="fas fa-user"></i>&nbsp;{{data.user.name}}</router-link></h4>
                                                  
                                                 <div class="product-price">
                                                     <span class="new ">{{data.pet.petType}} </span>
                                                   <span class="new ">{{data.petName}} </span>
-                                                  <span class="new ">{{data.color}} </span>
+                                                <span class="new" v-if="data.color">{{ data.color.color }} </span>
                                                 </div>
                                            
                                                 <p>{{data.description}}</p>
