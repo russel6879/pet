@@ -58,7 +58,7 @@ window.Toast = Toast
    { path: '/addBlog', component: AddBlog ,    meta: { hideDashboard: true }},
    { name:'myPost', path: '/myPost', component: MyPost ,    meta: { hideDashboard: true }},
    { name:'myBlog', path: '/myBlog', component: MyBlog ,    meta: { hideDashboard: true }},
-   { name:'blogList', path: '/blogList', component: BlogList ,    meta: { hideDashboard: true }},
+   {  path: '/blogList', component: BlogList ,    meta: { hideDashboard: true }},
    {
     name: 'user',
     path: '/user/:id',

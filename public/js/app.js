@@ -62205,7 +62205,6 @@ var routes = [{
     hideDashboard: true
   }
 }, {
-  name: 'blogList',
   path: '/blogList',
   component: _components_BlogList_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   meta: {

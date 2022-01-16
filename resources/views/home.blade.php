@@ -668,6 +668,21 @@
             </div>
 		</footer>
 		<!-- modal -->
+        @if($errors->any())
+    @foreach ($errors->all() as $error)
+    @if(isset($error))
+    @if($error == "These credentials do not match our records.")
+    <script type="text/javascript">
+      window.onload = function(){
+        $('#exampleModal').modal('show');
+      };
+    </script>
+    @else
+   
+    @endif
+    @endif
+    @endforeach
+  @endif
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                 <span class="ti-close" aria-hidden="true"></span>
