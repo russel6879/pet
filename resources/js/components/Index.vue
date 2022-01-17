@@ -311,8 +311,14 @@ export default {
         }
          if(filtered){
           if(filterSearch ){
-            filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase())||item.description.toLowerCase().includes(filterSearch.toLowerCase())||item.location.location.toLowerCase().includes(filterSearch.toLowerCase()) ||item.color.color.toLowerCase().includes(filterSearch.toLowerCase()||item.typr.petType.toLowerCase().includes(filterSearch.toLowerCase()))         }
-        }
+          if(item.description==null){
+            filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase())||item.location.location.toLowerCase().includes(filterSearch.toLowerCase()) ||item.color.color.toLowerCase().includes(filterSearch.toLowerCase()||item.typr.petType.toLowerCase().includes(filterSearch.toLowerCase()))         }
+          }
+          else{
+            filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase())||item.description.toLowerCase().includes(filterSearch.toLowerCase())||item.location.location.toLowerCase().includes(filterSearch.toLowerCase()) ||item.color.color.toLowerCase().includes(filterSearch.toLowerCase()||item.typr.petType.toLowerCase().includes(filterSearch.toLowerCase()))         
+          }
+      
+         }
      
         return filtered
       })

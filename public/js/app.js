@@ -3505,6 +3505,10 @@ __webpack_require__.r(__webpack_exports__);
 
         if (filtered) {
           if (filterSearch) {
+            if (item.description == null) {
+              filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase()) || item.location.location.toLowerCase().includes(filterSearch.toLowerCase()) || item.color.color.toLowerCase().includes(filterSearch.toLowerCase() || item.typr.petType.toLowerCase().includes(filterSearch.toLowerCase()));
+            }
+          } else {
             filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase()) || item.description.toLowerCase().includes(filterSearch.toLowerCase()) || item.location.location.toLowerCase().includes(filterSearch.toLowerCase()) || item.color.color.toLowerCase().includes(filterSearch.toLowerCase() || item.typr.petType.toLowerCase().includes(filterSearch.toLowerCase()));
           }
         }
