@@ -23,6 +23,8 @@
                             <div class="billing-info">
                               <label>Pet Name</label>
                               <input v-model="form.petName" type="text" />
+                                <div style="color:red" v-if="form.errors.has('petName')" v-html="form.errors.get('petName')" />
+
                             </div>
                           </div>
                          
@@ -52,6 +54,8 @@
                                   {{ color.color }}
                                 </option>
                               </select>
+                               <div style="color:red" v-if="form.errors.has('color')" v-html="form.errors.get('color')" />
+
                             </div>
                           </div>
                           <div class="col-lg-12 col-md-12">
@@ -80,6 +84,8 @@
                                   {{ type.petType }}
                                 </option>
                               </select>
+                               <div style="color:red" v-if="form.errors.has('petType')" v-html="form.errors.get('petType')" />
+
                             </div>
                           </div>
 
@@ -109,6 +115,8 @@
                                   {{ location.location }}
                                 </option>
                               </select>
+                                    <div style="color:red" v-if="form.errors.has('location')" v-html="form.errors.get('location')" />
+
                             </div>
                           </div>
 
@@ -153,6 +161,8 @@
                               height="70"
                               width="90"
                             />
+                                  <div style="color:red" v-if="form.errors.has('image')" v-html="form.errors.get('image')" />
+
                           </div>
                         </div>
                         <div class="billing-back-btn">
@@ -383,6 +393,11 @@ export default {
         Toast.fire({
           icon: "success",
           title: "Successfully Added!!!",
+        });
+      }).catch(res=>{
+        Toast.fire({
+          icon: "error",
+          title: "Something wrong!!Please Fill All Required Field",
         });
       });
     },

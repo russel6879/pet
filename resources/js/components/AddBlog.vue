@@ -106,6 +106,11 @@ export default {
           icon: "success",
           title: "Successfully Added!!!",
         });
+      }).catch(res=>{
+        Toast.fire({
+          icon: "error",
+          title: "Something wrong!!Please Fill All Required Field",
+        });
       });
     },
     changeImage(event) {

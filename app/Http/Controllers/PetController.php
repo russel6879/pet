@@ -40,6 +40,13 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'petType' => 'required',
+            'color' => 'required',
+            'location' => 'required',
+            'petName' => 'required',
+            'image' => 'required',
+        ]);
         $form = new Pet();
 
         $strpos = strpos($request->image, ';');
@@ -94,6 +101,7 @@ class PetController extends Controller
      */
     public function update(Request $request, $id)
     {
+     
         if ($strpos = strpos($request->image, ';')) {
 
             $form = Pet::find($id);

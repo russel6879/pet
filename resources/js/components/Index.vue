@@ -54,7 +54,7 @@
                         <span class="new" v-if="data.color" v-html="matchName(data.color.color)">   </span>
                       </div>
 
-                       <p v-html="matchName(data.description)"></p>
+                       <p v-if="data.description" v-html="matchName(data.description)"></p>
 
                       <div class="product-price">
                         <span class=""

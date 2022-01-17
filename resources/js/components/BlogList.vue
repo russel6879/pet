@@ -54,7 +54,7 @@
                     
                       </div>
 
-                       <p v-html="matchName(data.description)"></p>
+                       <p v-if="data.description" v-html="matchName(data.description)"></p>
 
                    
                       <div class="product-list-action">

@@ -16,12 +16,12 @@ class CreatePetsTable extends Migration
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
             $table->integer('userId');
-            $table->integer('petType')->nullable();
+            $table->integer('petType');
             $table->string('petName',100);
             $table->string('image',100)->nullable();
-            $table->integer('color')->nullable();
+            $table->integer('color');
             $table->string('phone',100)->nullable();
-            $table->integer('location')->nullable();
+            $table->integer('location');
             $table->text('address')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();

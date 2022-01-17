@@ -2018,6 +2018,11 @@ __webpack_require__.r(__webpack_exports__);
           icon: "success",
           title: "Successfully Added!!!"
         });
+      })["catch"](function (res) {
+        Toast.fire({
+          icon: "error",
+          title: "Something wrong!!Please Fill All Required Field"
+        });
       });
     },
     changeImage: function changeImage(event) {
@@ -2060,6 +2065,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2449,6 +2464,11 @@ __webpack_require__.r(__webpack_exports__);
         Toast.fire({
           icon: "success",
           title: "Successfully Added!!!"
+        });
+      })["catch"](function (res) {
+        Toast.fire({
+          icon: "error",
+          title: "Something wrong!!Please Fill All Required Field"
         });
       });
     },
@@ -43843,6 +43863,17 @@ var render = function () {
                                           },
                                         },
                                       }),
+                                      _vm._v(" "),
+                                      _vm.form.errors.has("petName")
+                                        ? _c("div", {
+                                            staticStyle: { color: "red" },
+                                            domProps: {
+                                              innerHTML: _vm._s(
+                                                _vm.form.errors.get("petName")
+                                              ),
+                                            },
+                                          })
+                                        : _vm._e(),
                                     ]),
                                   ]
                                 ),
@@ -43920,6 +43951,17 @@ var render = function () {
                                         ],
                                         2
                                       ),
+                                      _vm._v(" "),
+                                      _vm.form.errors.has("color")
+                                        ? _c("div", {
+                                            staticStyle: { color: "red" },
+                                            domProps: {
+                                              innerHTML: _vm._s(
+                                                _vm.form.errors.get("color")
+                                              ),
+                                            },
+                                          })
+                                        : _vm._e(),
                                     ]),
                                   ]
                                 ),
@@ -43997,6 +44039,17 @@ var render = function () {
                                         ],
                                         2
                                       ),
+                                      _vm._v(" "),
+                                      _vm.form.errors.has("petType")
+                                        ? _c("div", {
+                                            staticStyle: { color: "red" },
+                                            domProps: {
+                                              innerHTML: _vm._s(
+                                                _vm.form.errors.get("petType")
+                                              ),
+                                            },
+                                          })
+                                        : _vm._e(),
                                     ]),
                                   ]
                                 ),
@@ -44081,6 +44134,17 @@ var render = function () {
                                         ],
                                         2
                                       ),
+                                      _vm._v(" "),
+                                      _vm.form.errors.has("location")
+                                        ? _c("div", {
+                                            staticStyle: { color: "red" },
+                                            domProps: {
+                                              innerHTML: _vm._s(
+                                                _vm.form.errors.get("location")
+                                              ),
+                                            },
+                                          })
+                                        : _vm._e(),
                                     ]),
                                   ]
                                 ),
@@ -44217,6 +44281,17 @@ var render = function () {
                                             name: "image",
                                             height: "70",
                                             width: "90",
+                                          },
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.form.errors.has("image")
+                                      ? _c("div", {
+                                          staticStyle: { color: "red" },
+                                          domProps: {
+                                            innerHTML: _vm._s(
+                                              _vm.form.errors.get("image")
+                                            ),
                                           },
                                         })
                                       : _vm._e(),
@@ -44845,13 +44920,15 @@ var render = function () {
                               }),
                             ]),
                             _vm._v(" "),
-                            _c("p", {
-                              domProps: {
-                                innerHTML: _vm._s(
-                                  _vm.matchName(data.description)
-                                ),
-                              },
-                            }),
+                            data.description
+                              ? _c("p", {
+                                  domProps: {
+                                    innerHTML: _vm._s(
+                                      _vm.matchName(data.description)
+                                    ),
+                                  },
+                                })
+                              : _vm._e(),
                             _vm._v(" "),
                             _c("div", { staticClass: "product-list-action" }),
                           ]),
@@ -45724,13 +45801,15 @@ var render = function () {
                                 : _vm._e(),
                             ]),
                             _vm._v(" "),
-                            _c("p", {
-                              domProps: {
-                                innerHTML: _vm._s(
-                                  _vm.matchName(data.description)
-                                ),
-                              },
-                            }),
+                            data.description
+                              ? _c("p", {
+                                  domProps: {
+                                    innerHTML: _vm._s(
+                                      _vm.matchName(data.description)
+                                    ),
+                                  },
+                                })
+                              : _vm._e(),
                             _vm._v(" "),
                             _c("div", { staticClass: "product-price" }, [
                               _c("span", {}, [
