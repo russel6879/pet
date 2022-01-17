@@ -133,6 +133,8 @@
                                 v-model="form.description"
                                 type="text"
                               ></textarea>
+                                <div style="color:red" v-if="form.errors.has('description')" v-html="form.errors.get('description')" />
+
                             </div>
                           </div>
                           <div class="col-lg-12 col-md-12">

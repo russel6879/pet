@@ -2418,6 +2418,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3488,7 +3490,7 @@ __webpack_require__.r(__webpack_exports__);
         var filtered = true;
 
         if (filterType) {
-          filtered = item.petType == filterType;
+          filtered = item.pet.id == filterType;
         }
 
         if (filtered) {
@@ -3505,11 +3507,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (filtered) {
           if (filterSearch) {
-            if (item.description == null) {
-              filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase()) || item.location.location.toLowerCase().includes(filterSearch.toLowerCase()) || item.color.color.toLowerCase().includes(filterSearch.toLowerCase() || item.typr.petType.toLowerCase().includes(filterSearch.toLowerCase()));
-            }
-          } else {
-            filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase()) || item.description.toLowerCase().includes(filterSearch.toLowerCase()) || item.location.location.toLowerCase().includes(filterSearch.toLowerCase()) || item.color.color.toLowerCase().includes(filterSearch.toLowerCase() || item.typr.petType.toLowerCase().includes(filterSearch.toLowerCase()));
+            filtered = item.petName.toLowerCase().includes(filterSearch.toLowerCase()) || item.description.toLowerCase().includes(filterSearch.toLowerCase()) || item.location.location.toLowerCase().includes(filterSearch.toLowerCase()) || item.color.color.toLowerCase().includes(filterSearch.toLowerCase() || item.pet.petType.toLowerCase().includes(filterSearch.toLowerCase()));
           }
         }
 
@@ -44221,6 +44219,19 @@ var render = function () {
                                           },
                                         },
                                       }),
+                                      _vm._v(" "),
+                                      _vm.form.errors.has("description")
+                                        ? _c("div", {
+                                            staticStyle: { color: "red" },
+                                            domProps: {
+                                              innerHTML: _vm._s(
+                                                _vm.form.errors.get(
+                                                  "description"
+                                                )
+                                              ),
+                                            },
+                                          })
+                                        : _vm._e(),
                                     ]),
                                   ]
                                 ),

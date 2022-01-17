@@ -46,6 +46,7 @@ class PetController extends Controller
             'location' => 'required',
             'petName' => 'required',
             'image' => 'required',
+            'description' => 'required',
         ]);
         $form = new Pet();
 
